@@ -51,6 +51,10 @@ The APK is built by CI on every push — no local Android toolchain needed.
 5. Tap **SET AS DEFAULT HOME** and pick JARVIS. Android only allows that change from
    its own settings screen.
 
+The debug APK is around 25 MB — most of that is the Anthropic SDK and its JSON
+stack, unshrunk. A release build with R8 would cut it substantially; see the limits
+below before relying on one.
+
 To build locally instead: `./gradlew assembleDebug` with Android SDK 35 installed.
 
 ## Configuration
@@ -108,4 +112,7 @@ stream across tool-use turns. The HUD types the finished text out to keep the fe
   deliberately rather than by default.
 - Voice recognition uses the system recogniser, so it needs network on most phones.
 - Only the debug variant is exercised by CI; the release variant's R8 rules for the
-  Anthropic SDK are written but untested.
+  Anthropic SDK are written but untested. The SDK deserializes reflectively, so the
+  first release build needs a real device check before you trust it.
+- Nothing here has been run on hardware. It compiles and packages; the HUD, voice
+  loop, and tool calls have not been exercised on a phone.
