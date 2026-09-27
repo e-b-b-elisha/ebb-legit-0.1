@@ -20,6 +20,7 @@ import com.anthropic.models.messages.WebSearchTool20260209
 import com.ebb.jarvis.core.ai.tools.DeviceTools
 import com.ebb.jarvis.core.data.SecureStore
 import com.ebb.jarvis.core.system.SystemMonitor
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -160,6 +161,10 @@ class JarvisBrain(
         } catch (e: AnthropicServiceException) {
             Log.w(TAG, "Service error ${e.statusCode()}", e)
             emit(BrainEvent.Failure("API error ${e.statusCode()}."))
+        } catch (c: CancellationException) {
+            // A new question arriving mid-answer cancels this one. That is not a fault,
+            // and emitting into a cancelled flow would throw on top of it.
+            throw c
         } catch (t: Throwable) {
             Log.e(TAG, "Unexpected brain failure", t)
             emit(BrainEvent.Failure(t.message ?: "Something went wrong."))
