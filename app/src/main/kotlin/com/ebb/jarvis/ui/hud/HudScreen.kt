@@ -262,6 +262,7 @@ private fun CommandBar(
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 decorationBox = { inner ->
+                  Box {
                     if (draft.isEmpty()) {
                         Text(
                             text = "Type a command",
@@ -270,6 +271,7 @@ private fun CommandBar(
                         )
                     }
                     inner()
+                  }
                 },
             )
         }

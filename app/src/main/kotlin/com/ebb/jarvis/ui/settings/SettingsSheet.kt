@@ -284,14 +284,16 @@ private fun Field(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             modifier = Modifier.fillMaxWidth(),
             decorationBox = { inner ->
-                if (value.isEmpty()) {
-                    Text(
-                        text = placeholder,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = Jarvis.TextDim.copy(alpha = 0.6f),
-                    )
+                Box {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = placeholder,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Jarvis.TextDim.copy(alpha = 0.6f),
+                        )
+                    }
+                    inner()
                 }
-                inner()
             },
         )
     }

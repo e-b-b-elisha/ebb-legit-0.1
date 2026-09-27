@@ -106,6 +106,7 @@ fun AppDrawerSheet(
                 cursorBrush = SolidColor(Jarvis.Cyan),
                 modifier = Modifier.fillMaxWidth(),
                 decorationBox = { inner ->
+                  Box {
                     if (filter.isEmpty()) {
                         Text(
                             text = "Filter",
@@ -114,6 +115,7 @@ fun AppDrawerSheet(
                         )
                     }
                     inner()
+                  }
                 },
             )
         }

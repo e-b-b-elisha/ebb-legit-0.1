@@ -243,15 +243,30 @@ class JarvisBrain(
     private fun textBlock(text: String) =
         com.anthropic.models.messages.TextBlockParam.builder().text(text).build()
 
-    /** Keeps the conversation bounded; the launcher is not a chat archive. */
+    /**
+     * Keeps the conversation bounded; the launcher is not a chat archive.
+     *
+     * Trimming has to land on a plain user turn. Cutting mid-exchange would leave a
+     * tool_result whose tool_use has been dropped, which the API rejects outright, so
+     * the cut slides forward to the next clean boundary and clears everything if no
+     * such boundary is left.
+     */
     private fun trimHistory() {
-        while (history.size > MAX_HISTORY) {
-            // Drop from the front in pairs so a tool_result never outlives its tool_use.
-            history.removeAt(0)
-            if (history.isNotEmpty() && history.first().role() != MessageParam.Role.USER) {
-                history.removeAt(0)
-            }
+        if (history.size <= MAX_HISTORY) return
+        var cut = history.size - MAX_HISTORY
+        while (cut < history.size && !isPlainUserTurn(history[cut])) cut++
+        if (cut >= history.size) {
+            history.clear()
+        } else {
+            repeat(cut) { history.removeAt(0) }
         }
+    }
+
+    /** A user turn that opens an exchange, rather than one carrying tool results. */
+    private fun isPlainUserTurn(message: MessageParam): Boolean {
+        if (message.role() != MessageParam.Role.USER) return false
+        val blocks = message.content().blockParams().orElse(null) ?: return true
+        return blocks.none { it.isToolResult() }
     }
 
     private fun clientFor(key: String): AnthropicClient {
