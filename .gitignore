@@ -11,3 +11,11 @@ captures/
 *.aab
 *.keystore
 !debug.keystore
+
+# Claude design toolchain (.claude/) — see .claude/README.md
+.claude/settings.local.json
+.claude/design/screenshots/
+# Impeccable ephemeral state. Its project context (.impeccable/config.json,
+# design.json, surfaces/) is meant to be committed; the live-session scratch is not.
+**/.impeccable/hook.cache.json
+.impeccable/live/

@@ -1,0 +1,51 @@
+{
+  "_comment": "INERT SAMPLE — Claude Code does not read this filename. Review it, then copy to .claude/settings.json to activate. See .claude/README.md section 3 for what the hooks and permissions do.",
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "mcp__figma",
+      "mcp__playwright",
+      "Bash(.claude/skills/impeccable/scripts/impeccable:*)",
+      "Bash(npx -y @playwright/mcp@0.0.83 install-browser:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" hook",
+            "timeout": 5,
+            "statusMessage": "Preparing build session"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" hook",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/impeccable\" hook",
+            "timeout": 30,
+            "statusMessage": "Design deep pass"
+          }
+        ]
+      }
+    ]
+  }
+}

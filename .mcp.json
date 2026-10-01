@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.83",
+        "--browser=chromium",
+        "--viewport-size=1440,900",
+        "--output-dir=.claude/design/screenshots"
+      ]
+    }
+  }
+}
