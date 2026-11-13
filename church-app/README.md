@@ -16,5 +16,6 @@ design mockup with demo data; it is not a working app.
 | `Church-App-Blueprint-FULL.pdf` | Project lead and developer: architecture, stack, costs, roadmap |
 | `Church-App-Brief-for-Pastor.pdf` | The founder and leadership |
 | `Church-App-Feature-Workbook-for-Team.pdf` | The team: choose which features the church needs |
+| `TLC-App-Go-Live-Checklist-FILLABLE.pdf` | The team: fill in the go-live details in any PDF reader, save, send back |
 
-The go-live information checklist is a live shared doc; a fillable PDF copy is in `planning/`.
+The go-live checklist also exists as a live shared doc; the fillable PDF is a snapshot of it taken on 13 November 2026.
