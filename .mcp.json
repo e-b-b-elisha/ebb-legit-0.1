@@ -2,7 +2,7 @@
   "mcpServers": {
     "rea": {
       "command": "npx",
-      "args": ["-y", "rea-agents@latest", "mcp"],
+      "args": ["-y", "rea-agents@6.9.0", "mcp"],
       "env": {
         "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
       }
