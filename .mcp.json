@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "rea": {
+      "command": "npx",
+      "args": ["-y", "rea-agents@latest", "mcp"],
+      "env": {
+        "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
+      }
+    }
+  }
+}
